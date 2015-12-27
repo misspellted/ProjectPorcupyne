@@ -48,4 +48,4 @@ class WorldView:
             ## Reset for the next row of tiles.
             tileX = 0
         
-        return rendering
+        return ((pxLen, pxHei), rendering)

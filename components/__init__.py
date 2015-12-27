@@ -6,6 +6,7 @@ __loggerName = None
 __viewerName = None
 __loaderName = None
 __rendererName = None
+__cameraName = None
 __inputName = None
 
 ## Load any configured component values.
@@ -33,6 +34,8 @@ with open(CONFIG_FILE, "r") as configFile:
                 __loaderName = line.split("=")[1]
             elif "renderer=" in line:
                 __rendererName = line.split("=")[1]
+            elif "camera=" in line:
+                __cameraName = line.split("=")[1]
             elif "input=" in line:
                 __inputName = line.split("=")[1]
 
@@ -41,6 +44,7 @@ __logger = None
 __viewer = None
 __loader = None
 __renderer = None
+__camera = None
 __input = None
 
 ## Load the components if the value is configured.
@@ -59,6 +63,10 @@ if not __loaderName is None:
 if not __rendererName is None:
     import renderers
     __renderer = renderers.getRenderer(__rendererName)
+
+if not __cameraName is None:
+    import cameras
+    __camera = cameras.getCamera(__cameraName)
 
 if not __inputName is None:
     import inputs
@@ -95,6 +103,14 @@ def getRendererName():
 ## Gets the configured renderer.
 def getRenderer():
     return __renderer
+
+## Gets the configured camera name.
+def getCameraName():
+    return __cameraName
+
+## Gets the configured camera.
+def getCamera():
+    return __camera
 
 ## Gets the configured input name.
 def getInputName():
