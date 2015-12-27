@@ -2,6 +2,7 @@ from app import App
 import assets
 from components.events.mouse import *
 from controllers.world import WorldController
+import time
 
 def main():
     app = App()
@@ -24,19 +25,24 @@ def main():
     # Load assets before using them.
     assets.loadAssets(loader, logger)
 
+    # Create the game world.
     wc = WorldController(20, 15)
 
-    ## Create the screen if the viewer component was loaded.
+    # Do the first tile randomization.
+    wc.getModel().randomizeTiles()
+
+    # Create the screen if the viewer component was loaded.
     hasViewer = not viewer is None
     if hasViewer:
         viewer.initialize((640, 480))
 
-    ## Track mouse buttons if the input component was loaded.
+    # Track mouse buttons if the input component was loaded.
     hasInput = not input is None
     if hasInput:
         input.initialize([BUTTON_LEFT, BUTTON_MIDDLE, BUTTON_RIGHT])
 
-    ## Enter and maintain the application loop.
+    # Enter and maintain the application loop.
+    debut = time.time()
     quitting = False
     while not quitting:
         if hasInput:
@@ -46,16 +52,22 @@ def main():
             if hasViewer:
                 viewer.clear()
 
-                ## Render the world view.
+                # Randomize the tiles every 2 seconds.
+                arret = time.time()
+                if 2.0 < arret - debut:
+                    wc.getModel().randomizeTiles()
+                    debut = arret
+
+                # Render the world view.
                 renderedWorld = wc.getView().render(renderer)
 
-                ## Update the viewer.
+                # Update the viewer.
                 if not renderedWorld is None:
-                    ## TODO: Update the target coordinates when the rendering is larger than the viewer.
+                    # TODO: Update the target coordinates when the rendering is larger than the viewer.
                     viewer.draw(renderedWorld, (0, 0))
                 
                 viewer.refresh()
 
-    ## Clean up to shut down the application.
+    # Clean up to shut down the application.
     if hasViewer:
         viewer.terminate()
