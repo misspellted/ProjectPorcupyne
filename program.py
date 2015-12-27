@@ -21,7 +21,7 @@ def main():
     inputName = "none" if input is None else input.__class__.__name__
     logger.debug("Configured input: " + inputName)
 
-    # Load assetts before using them (currently, WorldController for TileView's).
+    # Load assets before using them.
     assets.loadAssets(loader, logger)
 
     wc = WorldController(20, 15)
@@ -59,6 +59,3 @@ def main():
     ## Clean up to shut down the application.
     if hasViewer:
         viewer.terminate()
-    
-##def main():
-##    wc = WorldController()

@@ -1,14 +1,13 @@
 from tile import TileView
 
 class WorldView:
-    def __init__(this, model): ##, assets):
+    def __init__(this, model):
         this.__length = model.getLength()
         this.__height = model.getHeight()
         this.__tiles = list()
 
         for y in range(this.__height):
             for x in range(this.__length):
-                ##this.__tiles.append(TileView(model.getTileAt(x, y), assets))
                 this.__tiles.append(TileView(model.getTileAt(x, y)))
 
     def getLength(this):
@@ -32,14 +31,20 @@ class WorldView:
         ## Start with a blank rendering.
         rendering = renderer.createRenderTarget(pxLen, pxHei)
 
-        ## TODO: Add the tiles.
+        ## Add the tiles.
         tileX = 0
         tileY = 0
         for y in range(this.__height):
-            tileY += TileView.TILE_HEIGHT
             for x in range(this.__length):
-                tileX += TileView.TILE_LENGTH
+                ## Render the current tile view.
                 renderer.renderItemTo(rendering, this.__tiles[y * this.__length + x].render(), (tileX, tileY))
+
+                ## Ready the next column.
+                tileX += TileView.TILE_LENGTH
+                
+            ## Ready the next row.
+            tileY += TileView.TILE_HEIGHT
+            
             ## Reset for the next row of tiles.
             tileX = 0
         
