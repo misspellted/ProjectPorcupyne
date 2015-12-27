@@ -1,3 +1,4 @@
+import assets
 from models.tile import TileTypes
 
 class TileView:
@@ -5,16 +6,15 @@ class TileView:
     TILE_LENGTH = 32
     TILE_HEIGHT = 32
     
-    def __init__(this, model, assets):
-        this.__assets = assets
+    def __init__(this, model):
         model.registerTileTypeChangedCallback(this.onTileTypeChanged)
         this.onTileTypeChanged(model.getTileType())
 
     def onTileTypeChanged(this, type):
         if type == TileTypes.Empty:
-            this.__sprite = this.__assets.getImage("empty_tile")
+            this.__sprite = assets.getImage("empty_tile")
         else:
-            this.__sprite = this.__assets.getImage("floor_tile")
+            this.__sprite = assets.getImage("floor_tile")
 
     def render(this):
         return this.__sprite

@@ -21,8 +21,8 @@ class WorldModel:
     def getTileAt(this, x, y):
         if 0 <= x < this.__length and 0 <= y < this.__height:
             return this.__tiles[y * this.__length + x]
-        else:
-            raise ValueError("Tile (" + x + ", " + y + ") is out of range.")
+
+        raise ValueError("Tile (" + x + ", " + y + ") is out of range.")
 
     def randomizeTiles(this):
         for y in range(this.__height):

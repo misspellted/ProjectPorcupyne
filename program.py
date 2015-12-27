@@ -1,5 +1,5 @@
 from app import App
-from assets.manager import AssetManager
+import assets
 from components.events.mouse import *
 from controllers.world import WorldController
 
@@ -21,11 +21,10 @@ def main():
     inputName = "none" if input is None else input.__class__.__name__
     logger.debug("Configured input: " + inputName)
 
-    assetPaths = app.discoverAssetPaths()
+    # Load assetts before using them (currently, WorldController for TileView's).
+    assets.loadAssets(loader, logger)
 
-    assets = AssetManager(assetPaths, loader, logger)
-
-    wc = WorldController(assets, 20, 15)
+    wc = WorldController(20, 15)
 
     ## Create the screen if the viewer component was loaded.
     hasViewer = not viewer is None

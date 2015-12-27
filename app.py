@@ -23,31 +23,31 @@ class App:
     def getInput(this):
         return this.__input
 
-    def discoverAssetPaths(this):
-        assetPaths = dict()
-        
-        ## For now, just assume 'config.ini' contains an [assets] record.
-        assetsRecordFound = False
-        with open("config.ini", "r") as configFile:
-            for line in configFile:
-                ## Strip the line ending.
-                line = line.strip("\r\n")
-                if not assetsRecordFound and line == "[assets]":
-                    assetsRecordFound = True
-                    ## GOTO the next line
-                    continue
-                if assetsRecordFound:
-                    ## Allow finishing of reading the assets record early.
-                    if len(line) == 0:
-                        break
-
-                    ## Process the assette record fields.
-                    if line.startswith("image:"):
-                        ## Load the image key and path.
-                        parts = line.split(":")[1].split("=")
-                        key = parts[0]
-                        path = parts[1]
-                        del parts
-                        assetPaths[key] = ("image", path)
-                        
-        return assetPaths
+##    def discoverAssetPaths(this):
+##        assetPaths = dict()
+##        
+##        ## For now, just assume 'config.ini' contains an [assets] record.
+##        assetsRecordFound = False
+##        with open("config.ini", "r") as configFile:
+##            for line in configFile:
+##                ## Strip the line ending.
+##                line = line.strip("\r\n")
+##                if not assetsRecordFound and line == "[assets]":
+##                    assetsRecordFound = True
+##                    ## GOTO the next line
+##                    continue
+##                if assetsRecordFound:
+##                    ## Allow finishing of reading the assets record early.
+##                    if len(line) == 0:
+##                        break
+##
+##                    ## Process the assette record fields.
+##                    if line.startswith("image:"):
+##                        ## Load the image key and path.
+##                        parts = line.split(":")[1].split("=")
+##                        key = parts[0]
+##                        path = parts[1]
+##                        del parts
+##                        assetPaths[key] = ("image", path)
+##                        
+##        return assetPaths
