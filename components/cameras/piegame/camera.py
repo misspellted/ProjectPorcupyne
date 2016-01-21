@@ -1,13 +1,15 @@
+import math
 import pygame
 
-## For help diagnosing any relative import issues, please see components.loggers.null.logger.
+# For help diagnosing any relative import issues, please see components.loggers.null.logger.
 from ..camera import Camera
 
 class PygameCamera(Camera):
     def __init__(this):
-        ## Set values indicating lack of initialization.
+        # Set values indicating lack of initialization.
         this.__viewer = None
         this.__renderer = None
+        this.__position = (0, 0)
 
     def initialize(this, viewer, renderer):
         this.__viewer = viewer
@@ -20,11 +22,39 @@ class PygameCamera(Camera):
         ## TODO: Properly handle different dimension mismatches.
 
         if not rendering is None:
-            this.__viewer.draw(rendering, (0, 0))
+            # Create a padded rendering (rendering surrounded by padding relative to camera dimensions).
+            vwr = this.__viewer.getDimensions()
+
+            ## FIXME: Assume that any dimension tuples are not None.
+            rl, rh = dimensions
+            vl, vh = vwr
+
+            # Create the padded rendering.
+            padded = this.__renderer.createRenderTarget(rl + vl, rh + vh)
+
+            # Calculate the start position of the rendering in the padded rendering.
+            rsx, rsy = int(math.floor(vl / 2.0)), int(math.floor(vh / 2.0))
+
+            # Copy the rendering into the padded rendering.
+            this.__renderer.renderItemTo(padded, rendering, (rsx, rsy))
+
+            # Delete the rendering (not needed anymore, since now in padded rendering).
             rendering = None
+
+            # Get the region that should be displayed to the viewer.
+            viewable = this.__renderer.copyRegionFrom(padded, this.__position, vwr)
+
+            # Delete the padded region (not needed anymore, since the viewable region is captured).
+
+            # Draw the viewable region to the viewer. 
+            this.__viewer.draw(viewable, (0, 0))
+
+            # Delete the viewable region (not needed anymore, since now in viewer).
+            viewer = None
 
         dimensions = None
 
     def terminate(this):
         this.__viewer = None
         this.__renderer = None
+        this.__position = None

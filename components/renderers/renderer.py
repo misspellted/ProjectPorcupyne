@@ -4,3 +4,6 @@ class Renderer:
 
     def renderItemTo(this, target, item, coordinates):
         return NotImplemented
+
+    def copyRegionFrom(this, source, coordinates, dimensions):
+        return NotImplemented
