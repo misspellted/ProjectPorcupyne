@@ -1,4 +1,5 @@
 import pygame
+from components.geometry.vectors import Vector2
 
 ## For help diagnosing any relative import issues, please see components.loggers.null.logger.
 from ..input import Input
@@ -25,6 +26,12 @@ class PygameInput(Input):
             button = BUTTON_RIGHT
         return button
 
+    def __setPosition(this, position):
+        this.__position = Vector2()
+        x, y = position
+        this.__position[0] = x
+        this.__position[1] = y
+
     def refresh(this):
         quitting = False
 
@@ -34,7 +41,7 @@ class PygameInput(Input):
             if not quitting:
                 ## Was a mouse button just pressed?
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    this.__position = event.pos
+                    this.__setPosition(event.pos)
 
                     button = this.__getAgnosticButton(event)
 
@@ -43,7 +50,7 @@ class PygameInput(Input):
 
                 ## Was a mouse button just released?
                 elif event.type == pygame.MOUSEBUTTONUP:
-                    this.__position = event.pos
+                    this.__setPosition(event.pos)
 
                     button = this.__getAgnosticButton(event)
 
@@ -52,7 +59,7 @@ class PygameInput(Input):
 
                 ## What is the state of the buttons when the mouse moved?
                 elif event.type == pygame.MOUSEMOTION:
-                    this.__position = event.pos
+                    this.__setPosition(event.pos)
 
                     ## event.buttons is a tuple of (left, middle, right).
                     left, middle, right = event.buttons
@@ -62,9 +69,6 @@ class PygameInput(Input):
                     this.__buttons[BUTTON_RIGHT] = MouseButtonDown() if right == 1 else MouseButtonUp()
         
         return quitting
-
-    def getMousePosition(this):
-        return this.__position
 
     def getMouseButtonPressed(this, button):
         pressed = False
@@ -86,3 +90,6 @@ class PygameInput(Input):
         if not event is None:
             released = isinstance(event, MouseButtonReleased)
         return released
+
+    def getMousePosition(this):
+        return this.__position

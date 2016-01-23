@@ -2,6 +2,7 @@ from app import App
 import assets
 from components.events.mouse import *
 import controllers
+from controllers.mouse import MouseController
 from controllers.world import WorldController
 
 class Porcuthon(App):
@@ -42,19 +43,20 @@ class Porcuthon(App):
             if not logger is None:
                 logger.debug("The required components are not available, and thus the game was not ready for playing.")
         else:        
-            # Add the world controller, caching the WorldView object.
-            wc = controllers.add(WorldController(20, 15))
-            
-            # Start up the controllers.
-            controllers.start()
-
-            # Grab a ref to the world view.
-            wv = wc.getView()
-            
             # Get the components used in the game loop.
             viewer = this.getViewer()
             camera = this.getCamera()
             input = this.getInput()
+
+            # Add the world controller, caching the WorldView object.
+            wc = controllers.add(WorldController(20, 15))
+            mc = controllers.add(MouseController(input, camera))
+            
+            # Start up the controllers.
+            controllers.start()
+            
+            # Grab a ref to the world view.
+            wv = wc.getView()
             
             # Enter and maintain the game loop.
             quitting = False
