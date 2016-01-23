@@ -1,17 +1,17 @@
 import pygame
 
-## For help diagnosing any relative import issues, please see components.loggers.null.logger.
+# For help diagnosing any relative import issues, please see components.loggers.null.logger.
 from ..viewer import Viewer
 
 class PygameViewer(Viewer):
     def __init__(this):
-        ## Set values indicating lack of initialization.
+        # Set values indicating lack of initialization.
         this.__display = None
         this.__fullscreen = None
         this.__dimensions = None
 
     def initialize(this, dimensions = None):
-        ## Initialize the PyGame display subsystem.
+        # Initialize the PyGame display subsystem.
         pygame.display.init()
         
         this.__fullscreen = dimensions is None
@@ -23,22 +23,25 @@ class PygameViewer(Viewer):
             this.__goWindowed()
 
     def __goFullScreen(this):
-        ## Only setup the fullscreen if not already in use or if just starting out.
+        # Only setup the fullscreen if not already in use or if just starting out.
         if not this.__fullscreen or this.__display is None:
-            ## If toggling, remember the old dimensions.
+            # If toggling, remember the old dimensions.
             this.__dimensions = this.__display.get_size()
             this.__display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             this.__fullscreen = True
-        ## Indicate if the switch was completed.
+        # Indicate if the switch was completed.
         return this.__fullscreen
 
     def __goWindowed(this):
-        ## Only setup the window if not already in use or if just starting out.
+        # Only setup the window if not already in use or if just starting out.
         if this.__fullscreen or this.__display is None:
             this.__display = pygame.display.set_mode(this.__dimensions)
             this.__fullscreen = False
-        ## Indicate if the switch was completed.
+        # Indicate if the switch was completed.
         return not this.__fullscreen
+
+    def getDimensions(this):
+        return this.__display.get_size()
 
     def toggleFullScreen(this):
         toggled = False

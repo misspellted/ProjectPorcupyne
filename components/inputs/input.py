@@ -13,3 +13,6 @@ class Input:
 
     def getMouseButtonReleased(this, button):
         return NotImplemented
+
+    def getMousePosition(this):
+        return NotImplemented

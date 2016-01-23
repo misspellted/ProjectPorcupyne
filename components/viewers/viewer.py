@@ -2,6 +2,9 @@ class Viewer:
     def initialize(this, dimensions = None):
         return NotImplemented
 
+    def getDimensions(this):
+        return NotImplemented
+
     def toggleFullScreen(this):
         return NotImplemented
 
