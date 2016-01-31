@@ -4,6 +4,7 @@ from components.events.mouse import *
 import controllers
 from controllers.mouse import MouseController
 from controllers.world import WorldController
+from views.ui import UiView
 
 class Porcuthon(App):
     def hasRequiredComponents(this):
@@ -15,12 +16,12 @@ class Porcuthon(App):
         return available
 
     def onRequiredComponentsAvailable(this):
-        # Load assets before using them, logging the loading for debugging if necessary.
-        assets.loadAssets(this.getLoader(), this.getLogger())
-
         # Define the final viewer pixel dimensions.
         viewer = this.getViewer()
         viewer.initialize((640, 480))
+        
+        # Load assets before using them, logging the loading for debugging if necessary.
+        assets.loadAssets(this.getLoader(), this.getLogger())
 
         # Attach the camera to the viewer, and also provide a renderer for displayed snapshots.
         this.getCamera().initialize(viewer, this.getRenderer())
@@ -47,10 +48,14 @@ class Porcuthon(App):
             viewer = this.getViewer()
             camera = this.getCamera()
             input = this.getInput()
+            renderer = this.getRenderer()
+
+            # Allow maniuplation of the UI overlay.
+            ui = UiView(viewer)
 
             # Add the world controller, caching the WorldView object.
             wc = controllers.add(WorldController(20, 15))
-            mc = controllers.add(MouseController(input, camera))
+            mc = controllers.add(MouseController(input, camera, ui))
             
             # Start up the controllers.
             controllers.start()
@@ -72,6 +77,9 @@ class Porcuthon(App):
 
                     # Update the viewer on what the camera sees.
                     camera.capture(wv)
+
+                    # Overlay the UI.
+                    ui.draw()
 
                     # Refresh the viewer.
                     viewer.refresh()

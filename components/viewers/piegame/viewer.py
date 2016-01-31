@@ -27,7 +27,7 @@ class PygameViewer(Viewer):
         if not this.__fullscreen or this.__display is None:
             # If toggling, remember the old dimensions.
             this.__dimensions = this.__display.get_size()
-            this.__display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            this.__display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN | pygame.DOUBLEBUF)
             this.__fullscreen = True
         # Indicate if the switch was completed.
         return this.__fullscreen
@@ -35,7 +35,7 @@ class PygameViewer(Viewer):
     def __goWindowed(this):
         # Only setup the window if not already in use or if just starting out.
         if this.__fullscreen or this.__display is None:
-            this.__display = pygame.display.set_mode(this.__dimensions)
+            this.__display = pygame.display.set_mode(this.__dimensions, pygame.DOUBLEBUF)
             this.__fullscreen = False
         # Indicate if the switch was completed.
         return not this.__fullscreen

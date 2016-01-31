@@ -29,7 +29,7 @@ class WorldView:
         pxHei = TileView.TILE_HEIGHT * this.__height
 
         ## Start with a blank rendering.
-        rendering = renderer.createRenderTarget(pxLen, pxHei)
+        rendering = renderer.createRenderTarget(pxLen, pxHei, (0, 0, 0, 0))
 
         ## Add the tiles.
         tileX = 0

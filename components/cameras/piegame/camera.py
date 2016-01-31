@@ -31,7 +31,7 @@ class PygameCamera(Camera):
             vl, vh = vwr
 
             # Create the padded rendering.
-            padded = this.__renderer.createRenderTarget(rl + vl, rh + vh)
+            padded = this.__renderer.createRenderTarget(rl + vl, rh + vh, (0, 0, 0, 0))
 
             # Calculate the start position of the rendering in the padded rendering.
             rsx, rsy = int(math.floor(vl / 2.0)), int(math.floor(vh / 2.0))
