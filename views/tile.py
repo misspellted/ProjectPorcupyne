@@ -10,11 +10,12 @@ class TileView:
         this.__hoveredOver = False
         model.registerTileTypeChangedCallback(this.onTileTypeChanged)
         this.onTileTypeChanged(model)
+        this.__model = model
 
     def onTileTypeChanged(this, tile):
-        type = tile.getTileType()
+        tileType = tile.getTileType()
 
-        if type == TileTypes.Empty:
+        if tileType == TileTypes.Empty:
             this.__sprite = assets.getImage("empty_tile")
         else:
             this.__sprite = assets.getImage("floor_tile")
@@ -36,3 +37,13 @@ class TileView:
 
     def clearHover(this):
         this.__hoveredOver = False
+
+    def onLeftMouseReleased(this):
+        # Toggle the tile type.
+        tileType = this.__model.getTileType()
+
+        if tileType == TileTypes.Empty:
+            this.__model.setTileType(TileTypes.Floor)
+        else:
+            this.__model.setTileType(TileTypes.Empty)
+

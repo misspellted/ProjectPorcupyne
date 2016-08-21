@@ -19,15 +19,16 @@ class WorldController(Controller):
         this.__model.randomizeTiles()
 
         # Set the first time for the 2-second tile randomizer.
-        this.__debut = time.time()
+#        this.__debut = time.time()
 
     def update(this):
-        now = time.time()
+        pass
+#        now = time.time()
 
-        # Randomize the tiles every 2 seconds.
-        if 2.0 <= now - this.__debut:
-            this.__debut = now
-            this.__model.randomizeTiles()
+#        # Randomize the tiles every 2 seconds.
+#        if 2.0 <= now - this.__debut:
+#            this.__debut = now
+#            this.__model.randomizeTiles()
 
     def getView(this):
         return this.__view

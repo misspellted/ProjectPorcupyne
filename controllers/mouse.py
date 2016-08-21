@@ -16,18 +16,22 @@ class MouseController(Controller):
         framePosition = this.__input.getMousePosition()
         worldPosition = this.__camera.screenToWorldPosition(framePosition)
 
-        # Clear the tile hover indicator if there was one.
+        # Update the tile hover indicator.
         if not this.__hoveredTileView is None:
             this.__hoveredTileView.clearHover()
             this.__hoveredTileView = None
 
-        # Set the new tile hover indicator if there is one.
         if not worldPosition is None:
             try:
                 this.__hoveredTileView = this.__worldView.getTileViewAt(worldPosition[0], worldPosition[1], False)
                 this.__hoveredTileView.onHover()
             except ValueError:
                 pass
+
+        # Handle left mouse clicks.
+        if this.__input.getMouseButtonReleased(BUTTON_LEFT):
+            if not this.__hoveredTileView is None:
+                this.__hoveredTileView.onLeftMouseReleased()
 
         # Handle mouse dragging.
         if this.__input.getMouseButtonDown(BUTTON_MIDDLE) or this.__input.getMouseButtonDown(BUTTON_RIGHT):
