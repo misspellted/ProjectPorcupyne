@@ -38,12 +38,5 @@ class TileView:
     def clearHover(this):
         this.__hoveredOver = False
 
-    def onLeftMouseReleased(this):
-        # Toggle the tile type.
-        tileType = this.__model.getTileType()
-
-        if tileType == TileTypes.Empty:
-            this.__model.setTileType(TileTypes.Floor)
-        else:
-            this.__model.setTileType(TileTypes.Empty)
-
+    def onDragSelectionComplete(this):
+        this.__model.setTileType(TileTypes.Floor)
