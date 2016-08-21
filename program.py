@@ -4,7 +4,7 @@ from components.events.mouse import *
 import controllers
 from controllers.mouse import MouseController
 from controllers.world import WorldController
-from views.ui import UiView
+##from views.ui import UiView
 
 class Porcupyne(App):
     def hasRequiredComponents(this):
@@ -51,11 +51,12 @@ class Porcupyne(App):
             renderer = this.getRenderer()
 
             # Allow maniuplation of the UI overlay.
-            ui = UiView(viewer)
+##            ui = UiView(viewer)
 
             # Add the world controller, caching the WorldView object.
             wc = controllers.add(WorldController(20, 15))
-            mc = controllers.add(MouseController(input, camera, ui))
+##            mc = controllers.add(MouseController(input, camera, ui))
+            mc = controllers.add(MouseController(input, camera, wc))
 
             # Start up the controllers.
             controllers.start()
@@ -78,8 +79,8 @@ class Porcupyne(App):
                     # Update the viewer on what the camera sees.
                     camera.capture(wv)
 
-                    # Overlay the UI.
-                    ui.draw()
+##                    # Overlay the UI.
+##                    ui.draw()
 
                     # Refresh the viewer.
                     viewer.refresh()

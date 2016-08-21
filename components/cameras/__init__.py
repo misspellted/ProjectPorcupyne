@@ -12,6 +12,9 @@ class Camera:
     def terminate(this):
         return NotImplemented
 
+    def screenToWorldPosition(this, screenPosition):
+        return NotImplemented
+
 ## Import the available cameras.
 from piegame.camera import PygameCamera
 
