@@ -1,6 +1,5 @@
 from controllers import Controller
 from components.events.mouse import BUTTON_LEFT, BUTTON_MIDDLE, BUTTON_RIGHT
-from views.tile import TileView
 
 class MouseController(Controller):
     def __init__(this, inputComponent, cameraComponent, worldController):
@@ -8,28 +7,25 @@ class MouseController(Controller):
         this.__camera = cameraComponent
         this.__wc = worldController
         this.__lastFramePosition = None
-        this.__tileUnderMouse = None
+        this.__hoveredTileView = None
 
     def start(this):
         this.__worldView = this.__wc.getView()
 
     def update(this):
-        ## FIXME: Convert from ScreenCoords to WorldCoords.
         framePosition = this.__input.getMousePosition()
         worldPosition = this.__camera.screenToWorldPosition(framePosition)
 
         # Clear the tile hover indicator if there was one.
-        if not this.__tileUnderMouse is None:
-            this.__tileUnderMouse.clearHover()
-            this.__tileUnderMouse = None
+        if not this.__hoveredTileView is None:
+            this.__hoveredTileView.clearHover()
+            this.__hoveredTileView = None
 
         # Set the new tile hover indicator if there is one.
         if not worldPosition is None:
             try:
-                wx, wy = worldPosition[0] / TileView.TILE_LENGTH, worldPosition[1] / TileView.TILE_HEIGHT
-
-                this.__tileUnderMouse = this.__worldView.getTileViewAt(wx, wy)
-                this.__tileUnderMouse.onHover()
+                this.__hoveredTileView = this.__worldView.getTileViewAt(worldPosition[0], worldPosition[1], False)
+                this.__hoveredTileView.onHover()
             except ValueError:
                 pass
 
@@ -43,5 +39,5 @@ class MouseController(Controller):
                 # Move the camera.
                 this.__camera.translate(delta)
 
-        ## FIXME: Get the updated frame position, in case the camera moves.
+        # Get the updated frame position, in case the camera moves.
         this.__lastFramePosition = framePosition

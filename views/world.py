@@ -16,11 +16,18 @@ class WorldView:
     def getHeight(this):
         return this.__height
 
-    def getTileViewAt(this, x, y):
-        if 0 <= x < this.__length and 0 <= y < this.__height:
-            return this.__tileViews[y * this.__length + x]
+    def getTileViewAt(this, x, y, cellular=True):
+        # Incoming indices may be pixelated, and need to be adjusted by tile dimensions.
+        tvx, tvy = x, y
 
-        raise ValueError(str.format("Tile ({0}, {1} is out of range.", x, y))
+        if not cellular:
+            tvx = int(tvx / TileView.TILE_LENGTH)
+            tvy = int(tvy / TileView.TILE_HEIGHT)
+
+        if 0 <= tvx < this.__length and 0 <= tvy < this.__height:
+            return this.__tileViews[tvy * this.__length + tvx]
+
+        raise ValueError("Tile ({0}, {1}) is out of range.".format(tvx, tvy))
 
     def render(this, renderer):
         ## Length and height refer to tile counts, not pixel size.

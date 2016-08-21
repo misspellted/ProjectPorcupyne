@@ -70,7 +70,10 @@ class PygameCamera(Camera):
         dimensions = None
 
     def translate(this, delta):
-        newPosition = this.__position + delta
+        if isinstance(delta, tuple):
+            newPosition = (this.__position[0] + delta[0], this.__position[1] + delta[1])
+        else:
+            newPosition = this.__position + delta
         if newPosition[0] < 0:
             newPosition[0] = 0
         if newPosition[1] < 0:
