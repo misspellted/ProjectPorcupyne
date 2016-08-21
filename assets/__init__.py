@@ -4,7 +4,7 @@ __assets = dict()
 ## Tracks the loaded assets (loading occurs when app calls loadAssets(...)).
 __images = dict()
 __audios = dict()
-        
+
 ## For now, just assume 'config.ini' contains an [assets] record.
 assetsRecordFound = False
 with open("config.ini", "r") as configFile:

@@ -6,7 +6,7 @@
 ## -> Prints 'components.loggers.null.logger' when imported.
 ## -> Prints '__main__' when executed.
 
-from ..logger import Logger
+from components.loggers import Logger
 ## -> Works if imported.
 ## -> 'ValueError: Attempted relative import in non-package'
 

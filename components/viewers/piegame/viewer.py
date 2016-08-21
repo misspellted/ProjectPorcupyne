@@ -1,7 +1,7 @@
 import pygame
 
 # For help diagnosing any relative import issues, please see components.loggers.null.logger.
-from ..viewer import Viewer
+from components.viewers import Viewer
 
 class PygameViewer(Viewer):
     def __init__(this):
@@ -13,7 +13,7 @@ class PygameViewer(Viewer):
     def initialize(this, dimensions = None):
         # Initialize the PyGame display subsystem.
         pygame.display.init()
-        
+
         this.__fullscreen = dimensions is None
         this.__dimensions = dimensions
 

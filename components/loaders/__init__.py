@@ -1,3 +1,11 @@
+## Define the loader 'interface'.
+class Loader:
+    def loadImage(this, filePath):
+        return NotImplemented
+
+    def loadAudio(this, filePath):
+        return NotImplemented
+
 ## Import the available loaders.
 from piegame.loader import PygameLoader
 

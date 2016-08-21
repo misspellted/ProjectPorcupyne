@@ -2,7 +2,7 @@ import pygame
 from components.geometry.vectors import Vector2
 
 ## For help diagnosing any relative import issues, please see components.loggers.null.logger.
-from ..input import Input
+from components.inputs import Input
 from ...events.mouse import *
 
 class PygameInput(Input):

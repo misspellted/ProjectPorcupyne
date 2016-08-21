@@ -1,4 +1,4 @@
-from controller import Controller
+from controllers import Controller
 from models.world import WorldModel
 import time
 from views.world import WorldView

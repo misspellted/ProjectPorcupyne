@@ -2,7 +2,7 @@ import pygame
 
 # For help diagnosing any relative import issues, please see components.loggers.null.logger.
 from ...coloration.colors import Color3, Color4
-from ..renderer import Renderer
+from components.renderers import Renderer
 
 class PygameRenderer(Renderer):
     def createRenderTarget(this, length, height, background):
@@ -12,21 +12,21 @@ class PygameRenderer(Renderer):
             renderTarget = pygame.Surface((length, height), flags=pygame.SRCALPHA, depth=32)
             bg = (background.getRed(), background.getGreen(), background.getBlue(), background.getTranslucency())
             renderTarget.fill(bg)
-            
+
         elif isinstance(background, Color3):
             renderTarget = pygame.Surface((length, height), depth=24)
             bg = (background.getRed(), background.getGreen(), background.getBlue(), background.getTranslucency())
             renderTarget.fill(bg)
-            
+
         elif isinstance(background, tuple):
             if len(background) == 4:
                 renderTarget = pygame.Surface((length, height), flags=pygame.SRCALPHA, depth=32)
                 renderTarget.fill(background)
-                
+
             elif len(background) == 3:
                 renderTarget = pygame.Surface((length, height), depth=24)
                 renderTarget.fill(background)
-        
+
         return renderTarget
 
     def renderItemTo(this, target, item, coordinates):

@@ -3,7 +3,7 @@ import pygame
 from components.geometry.vectors import Vector2
 
 # For help diagnosing any relative import issues, please see components.loggers.null.logger.
-from ..camera import Camera
+from components.cameras import Camera
 
 class PygameCamera(Camera):
     def __init__(this):

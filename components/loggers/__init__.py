@@ -1,3 +1,17 @@
+## Define the logger 'interface'.
+class Logger:
+    def error(this, error, message = None):
+        return NotImplemented
+
+    def warn(this, message):
+        return NotImplemented
+
+    def debug(this, message):
+        return NotImplemented
+
+    def info(this, message):
+        return NotImplemented
+
 ## Import the available loggers.
 from null.logger import NullLogger
 from print2x.logger import Print2xLogger

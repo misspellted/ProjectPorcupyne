@@ -1,4 +1,4 @@
-from controller import Controller
+from controllers import Controller
 from components.events.mouse import BUTTON_LEFT, BUTTON_MIDDLE, BUTTON_RIGHT
 
 class MouseController(Controller):
@@ -7,7 +7,7 @@ class MouseController(Controller):
         this.__camera = cameraComponent
         this.__ui = uiView
         this.__lastFramePosition = None
-        
+
     def start(this):
         pass
 
@@ -24,7 +24,7 @@ class MouseController(Controller):
             # Calculate the differnce between the two positions, if possible.
             if not this.__lastFramePosition is None:
                 delta = this.__lastFramePosition - mousePosition
-            
+
                 # Move the camera.
                 this.__camera.translate(delta)
 

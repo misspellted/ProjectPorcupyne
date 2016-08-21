@@ -6,7 +6,7 @@ from controllers.mouse import MouseController
 from controllers.world import WorldController
 from views.ui import UiView
 
-class Porcuthon(App):
+class Porcupyne(App):
     def hasRequiredComponents(this):
         available = not this.getViewer() is None
         available &= not this.getLoader() is None
@@ -19,7 +19,7 @@ class Porcuthon(App):
         # Define the final viewer pixel dimensions.
         viewer = this.getViewer()
         viewer.initialize((640, 480))
-        
+
         # Load assets before using them, logging the loading for debugging if necessary.
         assets.loadAssets(this.getLoader(), this.getLogger())
 
@@ -43,7 +43,7 @@ class Porcuthon(App):
             logger = this.getLogger()
             if not logger is None:
                 logger.debug("The required components are not available, and thus the game was not ready for playing.")
-        else:        
+        else:
             # Get the components used in the game loop.
             viewer = this.getViewer()
             camera = this.getCamera()
@@ -56,13 +56,13 @@ class Porcuthon(App):
             # Add the world controller, caching the WorldView object.
             wc = controllers.add(WorldController(20, 15))
             mc = controllers.add(MouseController(input, camera, ui))
-            
+
             # Start up the controllers.
             controllers.start()
-            
+
             # Grab a ref to the world view.
             wv = wc.getView()
-            
+
             # Enter and maintain the game loop.
             quitting = False
             while not quitting:
@@ -83,11 +83,13 @@ class Porcuthon(App):
 
                     # Refresh the viewer.
                     viewer.refresh()
-                    
+
         # Clean up to shut down the game.
         this.getCamera().terminate()
         this.getViewer().terminate()
 
 def main():
-    Porcuthon().play()
-        
+    Porcupyne().play()
+
+if __name__ == "__main__":
+    main()
