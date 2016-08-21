@@ -11,6 +11,7 @@ class PygameCamera(Camera):
         this.__viewer = None
         this.__renderer = None
         this.__position = Vector2()
+        this.__lastCameraOffset = None
 
     def initialize(this, viewer, renderer):
         this.__viewer = viewer
@@ -54,6 +55,9 @@ class PygameCamera(Camera):
             # Get the region that should be displayed to the viewer.
             viewable = this.__renderer.copyRegionFrom(padded, position, vwr)
 
+            # Camera offset (for screenToWorldPosition calculations).
+            this.__lastCameraOffset = (this.__position[0] - rsx, this.__position[1] - rsy)
+
             # Delete the padded region (not needed anymore, since the viewable region is captured).
             padded = None
 
@@ -78,3 +82,12 @@ class PygameCamera(Camera):
         this.__viewer = None
         this.__renderer = None
         this.__position = None
+
+    def screenToWorldPosition(this, screenPosition):
+        worldPosition = None
+
+        if not (this.__lastCameraOffset is None or screenPosition is None):
+            lcox, lcoy = this.__lastCameraOffset
+            worldPosition = (lcox + screenPosition[0], lcoy + screenPosition[1])
+
+        return worldPosition

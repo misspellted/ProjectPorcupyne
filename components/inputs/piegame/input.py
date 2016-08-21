@@ -67,7 +67,7 @@ class PygameInput(Input):
                     this.__buttons[BUTTON_LEFT] = MouseButtonDown() if left == 1 else MouseButtonUp()
                     this.__buttons[BUTTON_MIDDLE] = MouseButtonDown() if middle == 1 else MouseButtonUp()
                     this.__buttons[BUTTON_RIGHT] = MouseButtonDown() if right == 1 else MouseButtonUp()
-        
+
         return quitting
 
     def getMouseButtonPressed(this, button):
@@ -76,7 +76,7 @@ class PygameInput(Input):
         if not event is None:
             pressed = isinstance(event, MouseButtonPressed)
         return pressed
-    
+
     def getMouseButtonDown(this, button):
         down = False
         event = this.__buttons[button]

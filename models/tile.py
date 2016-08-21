@@ -19,7 +19,7 @@ class TileModel:
         if type != this.__type:
             this.__type = type
             for callback in this.__onTileTypeChanged:
-                callback(type)
+                callback(this)
 
     def registerTileTypeChangedCallback(this, callback):
         this.__onTileTypeChanged.append(callback)
