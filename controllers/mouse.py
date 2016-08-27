@@ -16,25 +16,10 @@ class MouseController(Controller):
         this.__dragStartPosition = None
 
         # TODO: Remove these.
-        this.__hoveredTileView = None
         this.__dragDebutPosition = None
 
     def start(this):
         this.__worldView = this.__wc.getView()
-
-    def __updateCursor(this):
-        if not this.__hoveredTileView is None:
-            this.__hoveredTileView.clearHover()
-            this.__hoveredTileView = None
-
-        worldPosition = this.__currentWorldPosition
-
-        if not worldPosition is None:
-            try:
-                this.__hoveredTileView = this.__worldView.getTileViewAt(worldPosition[0], worldPosition[1], False)
-                this.__hoveredTileView.onHover()
-            except ValueError:
-                pass
 
     def __updateDragging(this):
         # Start drag selection.
@@ -85,7 +70,6 @@ class MouseController(Controller):
         this.__currentWorldPosition = this.__camera.screenToWorldPosition(this.__currentFramePosition)
 
         # Update the position.
-        this.__updateCursor()
         this.__updateDragging()
         this.__updateCameraMovement()
 

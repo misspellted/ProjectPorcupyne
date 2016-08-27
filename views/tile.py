@@ -7,7 +7,6 @@ class TileView:
     TILE_HEIGHT = 32
 
     def __init__(this, model):
-        this.__hoveredOver = False
         model.registerTileTypeChangedCallback(this.onTileTypeChanged)
         this.onTileTypeChanged(model)
         this.__model = model
@@ -26,17 +25,7 @@ class TileView:
         ## Copy the sprite.
         renderer.renderItemTo(rendering, this.__sprite, (0, 0))
 
-        ## Show the hovering indicator, if applicable.
-        if this.__hoveredOver:
-            renderer.renderItemTo(rendering, assets.getImage("cursor"), (0, 0))
-
         return rendering
-
-    def onHover(this):
-        this.__hoveredOver = True
-
-    def clearHover(this):
-        this.__hoveredOver = False
 
     def onDragSelectionComplete(this):
         this.__model.setTileType(TileTypes.Floor)
