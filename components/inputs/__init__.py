@@ -18,6 +18,9 @@ class Input:
     def getMousePosition(this):
         return NotImplemented
 
+    def setMouseListener(this, mouseListener):
+        return NotImplemented
+
 ## Import the available inputs.
 from piegame.input import PygameInput
 
